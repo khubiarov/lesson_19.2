@@ -1,3 +1,24 @@
 from django.db import models
 
-# Create your models here.
+NULLABLE = {'blank': True, 'null': True}
+
+
+class Product(models.Model):
+    name = models.CharField(max_length=150, verbose_name='Наименование')
+    description = models.CharField(max_length=300, verbose_name='Описание')
+    image = models.ImageField(upload_to='photo/', verbose_name='Изображение', **NULLABLE)
+    category = models.IntegerField(verbose_name='Категория')
+    price = models.FloatField(verbose_name='Цена')
+    date_of_create = models.DateTimeField(verbose_name='Дата создания', **NULLABLE)
+    date_of_last_change = models.DateField(verbose_name='Дата последнего изменения', **NULLABLE)
+
+    def __str__(self):
+        return self.name
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=150, verbose_name='Наименование')
+    description = models.CharField(max_length=300, verbose_name="Описание", **NULLABLE)
+    #create_at = models.DateField(verbose_name='date_at', **NULLABLE)
+    def __str__(self):
+        return self.name
