@@ -22,4 +22,4 @@ class Dog(models.Model):
 
 class Meta:
     verbose_name = 'Порода'
-    verbose_name_plural = 'Порода'
+    verbose_name_plural = 'Породы'

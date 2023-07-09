@@ -18,11 +18,13 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
-#from catalog.views import catalog, home
+# from catalog.views import catalog, home
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('home/', include('catalog.urls')),
-    path('', include('catalog.urls'))
+                  path('admin/', admin.site.urls),
+                  # path('home/', include('catalog.urls')),
+                  path('', include('catalog.urls')),
+                  path('dogs/', include('dogs.urls',namespace='dogs')),
+                  path('lesson20_2/', include('lesson_20_2.urls'))
 
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT )
+              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
