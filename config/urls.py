@@ -25,6 +25,6 @@ urlpatterns = [
                   # path('home/', include('catalog.urls')),
                   path('', include('catalog.urls')),
                   path('dogs/', include('dogs.urls',namespace='dogs')),
-                  path('lesson20_2/', include('lesson_20_2.urls'))
-
+                  path('lesson20_2/', include('lesson_20_2.urls')),
+                  path('main/', include('main.urls'))
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

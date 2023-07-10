@@ -42,8 +42,8 @@ INSTALLED_APPS = [
 
     'catalog',
     'dogs',
-    'lesson_20_2'
-
+    'lesson_20_2',
+    'main'
 
 
 ]
