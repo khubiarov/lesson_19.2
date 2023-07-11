@@ -1,6 +1,12 @@
 from django.shortcuts import render
-
+from main.models import  Student
 
 
 def main(request):
-    return render(request, 'main/home.html')
+    students_list = Student.objects.all()
+
+    context = {
+        'object_list': students_list
+    }
+
+    return render(request, 'main/index.html', context)
