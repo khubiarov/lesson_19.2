@@ -10,4 +10,5 @@ urlpatterns =[
     path('', home_ctrl, name='lesson_20_2'),
     path('contacts/', contact_ctrl, name='lesson_20_2')
 
+
 ]

@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from main.models import  Student
+from main.models import Student
+from django.shortcuts import get_list_or_404, get_object_or_404
 
 
 def main(request):
@@ -21,6 +22,14 @@ def contact(request):
         print(f'{name} ({email}): {message}')
 
     context = {
-            'title' : 'Контакты'
-        }
+        'title': 'Контакты'
+    }
     return render(request, 'main/contact.html', context)
+
+
+def view_students(request, pk):
+    student_item = get_object_or_404(Student, pk=pk)
+
+    context = {'object': student_item
+               }
+    return render(request, 'main/student_detail.html', context)
