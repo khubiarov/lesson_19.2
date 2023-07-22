@@ -1,0 +1,36 @@
+{% extends 'main/base.html' %}
+{% block content %}
+    <a class="btn btn-outline-primary" href="{% url 'main:create_student' %}">Добавть студента</a>
+{% for object in object_list %}
+<div class="col-md-4">
+
+    <div class="card mb-4 box-shadow">
+
+        <div class="card-body">
+            <p class="card-text">
+                {% if object.is_active %}
+                    {{ object|title }}</p>
+                {% else %}
+                    <span class="text-muted">{{ object| title }}</span>
+                {% endif %}
+
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                    <a href="{% url 'main:view_student' object.pk %}" type="button" class="btn btn-sm btn-outline-secondary">Подробнее</a>
+                    <a href="{% url 'main:update_student' object.pk %}" type="button" class="btn btn-sm btn-outline-secondary">Правка</a>
+                    <a href="{% url 'main:delete_student' object.pk %}" type="button" class="btn btn-sm bg-danger">Удалить</a>
+
+                </div>
+                <div>
+                    {% if object.is_active %}
+                    <a href="{% url 'main:toggle_activity' object.pk %}" type="button" class="btn btn-sm btn-warning">Деактивировать</a>
+                    {% else %}
+                    <a href="{% url 'main:toggle_activity' object.pk %}" type="button" class="btn btn-sm btn-success">Активировать</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
