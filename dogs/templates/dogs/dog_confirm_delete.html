@@ -1,0 +1,28 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+    <div class="col-12">
+        <div class="row">
+            <div class="col-6">
+                <div class="card">
+
+                    <div class="card-header">
+                        Удаление собаки
+
+                    </div>
+
+                    <form method="post">
+                        {% csrf_token %}
+                        <p>Действительно удаляем {{ object.name }}?</p>
+                        <div class="card-body">
+                            <button type="submit" class="btn  btn-outline-danger">
+                                Удаляем?
+                            </button>
+                        <a href="{% url 'dogs:breeds' %}" class="btn btn-link" type="submit">Отмена</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

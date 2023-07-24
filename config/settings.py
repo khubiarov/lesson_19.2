@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'dogs',
     'lesson_20_2',
     'main',
-    'materials'
+    'materials',
+    'blog'
 
 
 ]

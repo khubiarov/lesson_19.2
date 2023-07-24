@@ -1,15 +1,29 @@
-from django.shortcuts import render
+from django.shortcuts import render, reverse
 from dogs.models import Dog, Breed
-from django.views.generic import ListView, DetailView , CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.urls import reverse_lazy
 
-def index(request):
+"""def index(request):
     dogs_list = Dog.objects.all()[:3]
     context = {
         "object_list": dogs_list,
         "title": 'Питомник - Главная'
     }
     return render(request, 'dogs/index.html', context)
+"""
+
+
+class IndexView(TemplateView):
+    template_name = 'dogs/index.html'
+    extra_context = {
+
+        "title": 'Питомник - Главная'
+    }
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data['object_list'] = Breed.objects.all()[:3]
+        return context_data
 
 
 """def breeds(request):
@@ -59,8 +73,24 @@ class DogsListView(ListView):
 
         return context_data
 
+
 class DogCreateView(CreateView):
     model = Dog
-    fields = ('name', 'breed', )
-    success_url = reverse_lazy('dogs:dogs_list')
+    fields = ('name', 'breed',)
+    success_url = reverse_lazy('dogs:index')
     template_name = 'dogs/dog_from.html'
+
+
+class DogUpdateView(UpdateView):
+    model = Dog
+    fields = ('name', 'breed',)
+    # success_url = reverse_lazy('dogs:index')
+    template_name = 'dogs/dog_from.html'
+
+    def get_success_url(self):
+        return reverse('dogs:dogs_list', args=[self.object.breed.pk])
+
+
+class DogDeleteView(DeleteView):
+    model = Dog
+    success_url = reverse_lazy('dogs:breeds')
