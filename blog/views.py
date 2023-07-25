@@ -11,8 +11,12 @@ from django.shortcuts import get_object_or_404, redirect
 class BlogCreatView(CreateView):
     model = Blog
 
-    fields = ('heading', 'content', 'preview',)
-    success_url = reverse_lazy('blog:start_list')  # Здесь вроде переделать
+    fields = ('heading', 'content', 'preview')
+    success_url = reverse_lazy('blog:start_list')
+    extra_context = {
+
+        "title": 'Создание публикации'
+    }
 
     def form_valid(self, form):
         if form.is_valid():
@@ -47,6 +51,7 @@ class BlogDetailView(DetailView):
         return self.object
 
 
+
 class BlogListView(ListView):
     model = Blog
     template_name = 'blog/blog_list.html'
@@ -54,7 +59,7 @@ class BlogListView(ListView):
 
 class BlogUpdateView(UpdateView):
     model = Blog
-    fields = ('heading', 'content', 'preview',)
+    fields = ('heading', 'content', 'preview')
 
     def get_success_url(self):
         return reverse('blog:view', args=[self.kwargs.get('pk')])

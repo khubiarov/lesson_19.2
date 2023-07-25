@@ -83,7 +83,7 @@ class DogCreateView(CreateView):
 
 class DogUpdateView(UpdateView):
     model = Dog
-    fields = ('name', 'breed',)
+    fields = ('name', 'breed','photo')
     # success_url = reverse_lazy('dogs:index')
     template_name = 'dogs/dog_from.html'
 
