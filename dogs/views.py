@@ -1,5 +1,8 @@
+from django.forms import inlineformset_factory
 from django.shortcuts import render, reverse
-from dogs.models import Dog, Breed
+
+from dogs.froms import DogForm, ParentForm
+from dogs.models import Dog, Breed, Parent
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.urls import reverse_lazy
 
@@ -76,19 +79,42 @@ class DogsListView(ListView):
 
 class DogCreateView(CreateView):
     model = Dog
-    fields = ('name', 'breed',)
-    success_url = reverse_lazy('dogs:index')
-    template_name = 'dogs/dog_from.html'
+
+    form_class = DogForm
+    success_url = reverse_lazy('dogs:breeds')
 
 
 class DogUpdateView(UpdateView):
     model = Dog
-    fields = ('name', 'breed','photo')
-    # success_url = reverse_lazy('dogs:index')
-    template_name = 'dogs/dog_from.html'
+
+    form_class = DogForm
 
     def get_success_url(self):
-        return reverse('dogs:dogs_list', args=[self.object.breed.pk])
+        return  reverse('dogs:dog_update',  args=[self.kwargs.get('pk')])
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        ParentFormset = inlineformset_factory(Dog, Parent, form=ParentForm, extra=1)
+        if self.request.method == 'POST':
+            formset = ParentFormset(self.request.POST, instance=self.object)
+        else:
+            formset = ParentFormset(instance=self.object)
+
+        context_data['formset'] = formset
+        # with open('file', 'wt', encoding='UTF-8') as file:
+        #    file.write(str(context_data))
+        return context_data
+
+    def form_valid(self, form):
+        context_data = self.get_context_data()
+        # with open('file.txt', 'wt', encoding='UTF-8')as file:
+        #    file.write(str(context_data))
+        formset = context_data['formset']
+        self.object = form.save()
+        if formset.is_valid():
+            formset.instance = self.object
+            formset.save()
+        return super().form_valid(form)
 
 
 class DogDeleteView(DeleteView):

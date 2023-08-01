@@ -1,17 +1,19 @@
+from django.forms import inlineformset_factory
 from django.shortcuts import render
 from datetime import date
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
-#, TemplateView оставил для других проектов
+# , TemplateView оставил для других проектов
 from pytils.translit import slugify
 from django.urls import reverse_lazy, reverse
-from blog.models import Blog
+from blog.models import Blog, Version
 from django.shortcuts import get_object_or_404, redirect
+from blog.forms import BlogForm, VersionFrom
 
 
 class BlogCreatView(CreateView):
     model = Blog
+    form_class = BlogForm
 
-    fields = ('heading', 'content', 'preview')
     success_url = reverse_lazy('blog:start_list')
     extra_context = {
 
@@ -47,9 +49,8 @@ class BlogDetailView(DetailView):
     def get_object(self, queryset=None):
         self.object = super().get_object(queryset)
         self.object.count_of_views += 1
-        self.object.save()
+        self.object.save(update_fields=['count_of_views'])
         return self.object
-
 
 
 class BlogListView(ListView):
@@ -57,17 +58,46 @@ class BlogListView(ListView):
     template_name = 'blog/blog_list.html'
 
 
+class VersionForm:
+    pass
+
+
 class BlogUpdateView(UpdateView):
     model = Blog
-    fields = ('heading', 'content', 'preview')
+    form_class = BlogForm
 
     def get_success_url(self):
         return reverse('blog:view', args=[self.kwargs.get('pk')])
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        BlogFormset = inlineformset_factory(Blog, Version, form=VersionFrom, extra=1)
+        if self.request.method == 'POST':
+            formset = BlogFormset(self.request.POST, instance=self.object)
+        else:
+            formset = BlogFormset(instance=self.object)
+
+        context_data['formset'] = formset
+        with open('file', 'wt', encoding='UTF-8') as file:
+            file.write(str(context_data))
+        return context_data
+
+    def form_valid(self, form):
+        context_data = self.get_context_data()
+        # with open('file.txt', 'wt', encoding='UTF-8')as file:
+        #    file.write(str(context_data))
+        formset = context_data['formset']
+        self.object = form.save()
+        if formset.is_valid():
+            formset.instance = self.object
+            formset.save()
+        return super().form_valid(form)
 
 
 class BlogDeleteView(DeleteView):
     model = Blog
     success_url = reverse_lazy('blog:start_list')
+
 
 class FullListView(ListView):
     model = Blog

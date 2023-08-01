@@ -1,21 +1,13 @@
-{% extends 'main/base.html' %}
+{% extends 'blog/base.html' %}
 
 {% block content %}
+    <form method="post">
     <div class="col-12">
         <div class="row">
             <div class="col-6">
                 <div class="card">
                     <div class="card-body">
-                        <div class="card-header">
-                            {% if object %}
-                                Редактирование собаки
-                            {% else %}
-                                Добавление собаки
-                            {% endif %}
 
-                        </div>
-
-                        <form method="post" enctype="multipart/form-data">
                             {% csrf_token %}
                             {{ form.as_p }}
                             <button type="submit" class="btn btn-success">
@@ -25,10 +17,30 @@
                                     Создать
                                 {% endif %}
                             </button>
-                        </form>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="col-12">
+        <div class="row">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-body">
+
+
+
+                            {{ formset.management_form}}
+                            {% for form in fromset.forms %}
+                                {{ form.as_p }}
+                            {% endfor %}
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
 {% endblock %}
