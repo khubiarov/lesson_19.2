@@ -55,11 +55,9 @@ class BlogDetailView(DetailView):
 
 class BlogListView(ListView):
     model = Blog
+
     template_name = 'blog/blog_list.html'
 
-
-class VersionForm:
-    pass
 
 
 class BlogUpdateView(UpdateView):
@@ -102,3 +100,5 @@ class BlogDeleteView(DeleteView):
 class FullListView(ListView):
     model = Blog
     template_name = 'blog/blog_full_list.html'
+
+

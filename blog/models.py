@@ -1,5 +1,6 @@
 from django.db import models
 
+
 NULLABLE = {'blank': True, 'null': True}
 
 
@@ -25,7 +26,7 @@ class Version(models.Model):
     product = models.ForeignKey(Blog, on_delete=models.CASCADE, verbose_name='Наименование')
     numbers = models.CharField(max_length=150, verbose_name='Номер Версии')
     versions_name = models.CharField(max_length=150, verbose_name='Название версии')
-    is_active = models.BooleanField(verbose_name='признак версии')
+    is_active = models.BooleanField(verbose_name='признак версии', **NULLABLE)
 
     def __str__(self):
         return {self.versions_name}

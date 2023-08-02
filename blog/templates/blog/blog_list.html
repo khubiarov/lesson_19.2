@@ -16,8 +16,14 @@
                             </p>
                             <P class="card-img">
                             <img src="{{ object.preview | mymedia }}" width="200" alt="Нет картинки">
-                            </P>
 
+                            </P>
+                            <p>
+                            {{ formset.management_form }}
+                            {% for form in formset.forms %}
+                            {{ form.as_p }}
+                            {% endfor %}
+                            </p>
 
 
                     <div class="d-flex justify-content-between align-items-center">

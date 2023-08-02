@@ -1,0 +1,1 @@
+{'object': <Blog: кр 2023-07-25>, 'blog': <Blog: кр 2023-07-25>, 'form': <BlogForm bound=False, valid=Unknown, fields=(heading;content;preview)>, 'view': <blog.views.BlogUpdateView object at 0x00000287497A44D0>, 'formset': <django.forms.formsets.VersionFormFormSet object at 0x000002874975ABD0>}

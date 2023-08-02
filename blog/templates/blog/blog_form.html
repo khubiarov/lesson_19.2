@@ -43,7 +43,9 @@
                     {{ formset.management_form }}
                     {% for form in formset.forms %}
                         {{ form.as_p }}
-
+                    {% if forloop.revcounter != 0 %}
+                        <hr>
+                        {% endif %}
 
                     {% endfor %}
 

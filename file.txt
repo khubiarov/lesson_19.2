@@ -1,0 +1,5 @@
+{'object': <Dog: ГарикCed1>,
+'dog': <Dog: ГарикCed1>,
+'form': <DogForm bound=True, valid=Unknown, fields=(name;breed;photo;birth_day)>,
+'view': <dogs.views.DogUpdateView object at 0x000001EF40452750>,
+'form_set': <django.forms.formsets.ParentFormFormSet object at 0x000001EF40472890>}
