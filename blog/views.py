@@ -56,7 +56,21 @@ class BlogDetailView(DetailView):
 class BlogListView(ListView):
     model = Blog
 
-    template_name = 'blog/blog_list.html'
+
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        active_versions = Version.objects.filter(is_active=True).select_related('product')
+        active_products = {version.product_id: version for version in active_versions}
+        for product in queryset:
+            product.active_version = active_products.get(product.id)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        queryset = self.get_queryset()
+        context['products'] = queryset
+        return context
 
 
 
@@ -76,8 +90,6 @@ class BlogUpdateView(UpdateView):
             formset = BlogFormset(instance=self.object)
 
         context_data['formset'] = formset
-        with open('file', 'wt', encoding='UTF-8') as file:
-            file.write(str(context_data))
         return context_data
 
     def form_valid(self, form):
@@ -100,5 +112,3 @@ class BlogDeleteView(DeleteView):
 class FullListView(ListView):
     model = Blog
     template_name = 'blog/blog_full_list.html'
-
-

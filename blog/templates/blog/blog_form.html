@@ -1,7 +1,7 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
-    <form method="post" >
+    <form method="post">
         <div class="col-12">
 
             <div class="col-6">
@@ -9,9 +9,9 @@
                     <div class="card-body">
                         <div class="card-header">
                             {% if object %}
-                                Редактирование собаки
+                                Редактирование публикации
                             {% else %}
-                                Добавление собаки
+                                Добавление публикации
                             {% endif %}
 
                         </div>
@@ -31,28 +31,27 @@
                 </div>
             </div>
         </div>
-    <div class="col-12">
-        <div class="col-6">
-            <div class="card">
-            <div class="card-body">
-                <div class="card-header">
-                    Версия
-                </div>
+        <div class="col-12">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-header">
+                            Версия
+                        </div>
 
 
-                    {{ formset.management_form }}
-                    {% for form in formset.forms %}
-                        {{ form.as_p }}
-                    {% if forloop.revcounter != 0 %}
-                        <hr>
-                        {% endif %}
+                        {{ formset.management_form }}
+                        {% for form in formset %}
+                            {{ form.as_p }}
+                            {% if forloop.revcounter != 0 %}
+                                <hr>
+                            {% endif %}
+                        {% endfor %}
 
-                    {% endfor %}
 
-
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     </form>
 {% endblock %}

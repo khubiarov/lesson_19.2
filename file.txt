@@ -1,5 +1,1 @@
-{'object': <Dog: ГарикCed1>,
-'dog': <Dog: ГарикCed1>,
-'form': <DogForm bound=True, valid=Unknown, fields=(name;breed;photo;birth_day)>,
-'view': <dogs.views.DogUpdateView object at 0x000001EF40452750>,
-'form_set': <django.forms.formsets.ParentFormFormSet object at 0x000001EF40472890>}
+<QuerySet [<Blog: кр 2023-07-25>, <Blog: крипта 2023-07-30>, <Blog: крипта 2023-07-30>, <Blog: к 2023-07-30>, <Blog: крипта 2023-07-31>, <Blog: ывапб 2023-07-31>, <Blog: 123123123add None>, <Blog: firma None>, <Blog: new public None>, <Blog: textnew123 None>, <Blog: text None>, <Blog: 213412354 None>, <Blog: Блог кота None>]>
