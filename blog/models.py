@@ -16,6 +16,12 @@ class Blog(models.Model):
     def __str__(self):
         return f'{self.heading} {self.date_of_create}'
 
+    @property
+    def active_version(self):
+        return Version.objects.filter(product=self.id, is_active=True).first()
+
+
+
     class Meta:
         verbose_name = "Блог"
         verbose_name_plural = "Блоги"
