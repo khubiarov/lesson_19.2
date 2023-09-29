@@ -1,6 +1,5 @@
 from django.db import models
 
-
 NULLABLE = {'blank': True, 'null': True}
 
 
@@ -13,14 +12,10 @@ class Blog(models.Model):
     is_published = models.BooleanField(verbose_name='Опубликовано', default=True)
     count_of_views = models.IntegerField(verbose_name='Количество просмотров', default=0)
 
+
+
     def __str__(self):
         return f'{self.heading} {self.date_of_create}'
-
-    @property
-    def active_version(self):
-        return Version.objects.filter(product=self.id, is_active=True).first()
-
-
 
     class Meta:
         verbose_name = "Блог"
@@ -34,8 +29,8 @@ class Version(models.Model):
     versions_name = models.CharField(max_length=150, verbose_name='Название версии')
     is_active = models.BooleanField(verbose_name='признак версии', **NULLABLE)
 
-    def __str__(self):
-        return {self.versions_name}
+    #def __str__(self):
+    #   return {self.versions_name}
 
     class Meta:
         verbose_name = "Версия"

@@ -4,10 +4,8 @@ from catalog.views import ContactView, HomeView
 
 app_name = 'catalog'
 
-
-urlpatterns =[
+urlpatterns = [
     path('contacts/', ContactView.as_view(), name='catalog'),
-    path('', HomeView.as_view(), name='home')
-
+    path('', HomeView.as_view(), name='home'),
 
 ]
